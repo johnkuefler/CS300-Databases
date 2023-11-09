@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Pets</h1>
+
+    <form action="/pets" method="post">
+        <input type="text" name="name" placeholder="Name">
+        <input type="text" name="type" placeholder="Type">
+        <input type="text" name="age" placeholder="Age">
+        <input type="submit" value="Add Pet">
+    </form>
+
+    <br>
+    
+    <table border="1">
+        <thead>
+            <tr>
+                <td>Name</td>
+                <td>Type</td>
+                <td>Age</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% for(var i=0; i< pets.length; i++) {%>
+                <tr>
+                    <td><%= pets[i].name %></td>
+                    <td><%= pets[i].type %></td>
+                    <td><%= pets[i].age %></td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+  </body>
+</html>
