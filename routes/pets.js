@@ -23,4 +23,16 @@ router.post('/', async function(req, res, next) {
         res.redirect('/');
     }
 });
+
+router.get('/delete', async function(req, res, next) {  
+    let id = req.query._id;
+
+    try {
+        await Pet.findByIdAndDelete(id);
+        res.redirect('/pets');
+    } catch (e) {
+        console.log(e);
+        res.redirect('/');
+    }
+});
 module.exports = router;
