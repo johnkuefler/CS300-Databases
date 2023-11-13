@@ -2,6 +2,12 @@ var express = require('express');
 var router = express.Router();
 var Pet = require('../models/pet');
 
+router.get('/api', async function(req, res, next) {
+    var pets = await Pet.find();
+  
+    res.send(pets);
+  });
+
 router.get('/', async function(req, res, next) {
   var pets = await Pet.find();
 

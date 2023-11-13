@@ -32,7 +32,8 @@
                     <td><%= pets[i].name %></td>
                     <td><%= pets[i].type %></td>
                     <td><%= pets[i].age %></td>
-                    <td><a href="/pets/delete?_id=<%=pets[i]._id%>" onclick="return confirm('Are you sure you want to delete the record?')">Delete</a></td>
+                    <td><a href="/pets/delete?_id=<%=pets[i]._id%>" 
+                        onclick="return confirm('Are you sure you want to delete the record?')">Delete</a></td>
                 </tr>
             <% } %>
         </tbody>
