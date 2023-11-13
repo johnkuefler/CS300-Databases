@@ -3,7 +3,7 @@ var router = express.Router();
 var Pet = require('../models/pet');
 
 router.get('/api', async function(req, res, next) {
-    if (!req.query.key == "1234xyz"){
+    if (req.query.key != "1234xyz") {
          return res.status(401).send("Unauthorized");
     }
 
