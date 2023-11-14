@@ -34,6 +34,25 @@ router.post('/', async function(req, res, next) {
     }
 });
 
+router.get('/edit', async function(req, res, next) {
+    let id = req.query._id;
+
+    let pet = await Pet.findById(id);
+
+    res.render('edit', {pet: pet });
+});
+
+router.post('/edit', async function(req, res, next) {
+    await Pet.findOneAndUpdate({_id: req.body._id}, {
+        name: req.body.name,
+        type: req.body.type,
+        age: req.body.age
+    });
+
+    res.redirect('/pets');
+});
+
+
 router.get('/delete', async function(req, res, next) {  
     let id = req.query._id;
 
