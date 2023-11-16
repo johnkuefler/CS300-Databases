@@ -1,6 +1,49 @@
 var express = require('express');
 var router = express.Router();
 var Pet = require('../models/pet');
+var excel = require('exceljs');
+
+router.get('/excel-export', async function(req, res, next) {
+    const workbook = new excel.Workbook();
+    const worksheet = workbook.addWorksheet('Pets');
+
+    const pets = await Pet.find();
+
+    worksheet.columns = [
+        { header: 'Name', key: 'name', width: 30 },
+        { header: 'Type', key: 'type', width: 10 },
+        { header: 'Age', key: 'age', width: 10 }
+    ];
+
+    worksheet.addRows(pets);
+
+    res.setHeader(
+        'content-type',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    );
+
+    res.setHeader(
+        'content-disposition',
+        'attachment; filename=pets.xlsx'
+    );
+
+    return workbook.xlsx.write(res).then(function() {
+        res.status(200).end();
+    });
+});
+
+router.get('/csv-export', async function(req, res, next) {
+    let pets = await Pet.find();
+
+    let csv = "Name,Type,Age\n";
+    for (let pet of pets) {
+        csv+= pet.name + "," + pet.type + "," + pet.age + "\n";
+    }
+
+    res.header('Content-Type', 'text/csv');
+    res.attachment('pets.csv');
+    res.send(csv);
+});
 
 router.get('/api', async function(req, res, next) {
     if (req.query.key != "1234xyz") {
