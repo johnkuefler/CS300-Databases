@@ -72,8 +72,7 @@ router.post('/', async function(req, res, next) {
         await pet.save();
         res.redirect('/pets');
     } catch (e) {
-        console.log(e);
-        res.redirect('/');
+       res.render('servererror', {error: e.message});
     }
 });
 
